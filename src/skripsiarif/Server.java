@@ -76,7 +76,10 @@ public class Server implements Runnable{
         else if(pecah[1].equalsIgnoreCase("1"))
         {
             antrianpoli2.add(pecah[0]);
+            for(int i = 0 ;i < antrianpoli2.size();i++)
+                datasource.addRow(new String[]{String.valueOf(antrianpoli2.get(i))});
             String dapat = String.valueOf(antrianpoli2.size());
+            fa.tblPoli2.setModel(datasource);
             try {
                 send("1|"+dapat,2204);
             } catch (UnknownHostException ex) {
@@ -88,8 +91,10 @@ public class Server implements Runnable{
         else if(pecah[1].equalsIgnoreCase("2"))
         {
             antrianpoli3.add(pecah[0]);
-            
+            for(int i = 0 ;i < antrianpoli3.size();i++)
+                datasource.addRow(new String[]{String.valueOf(antrianpoli3.get(i))});
             String dapat = String.valueOf(antrianpoli3.size());
+            fa.tblPoli3.setModel(datasource);
             try {
                 send("1|"+dapat,2204);
             } catch (UnknownHostException ex) {
@@ -101,7 +106,10 @@ public class Server implements Runnable{
         else if(pecah[1].equalsIgnoreCase("3"))
         {
             antrianpoli4.add(pecah[0]);
+            for(int i = 0 ;i < antrianpoli4.size();i++)
+                datasource.addRow(new String[]{String.valueOf(antrianpoli4.get(i))});
             String dapat = String.valueOf(antrianpoli4.size());
+            fa.tblPoli4.setModel(datasource);
             try {
                 send("1|"+dapat,2204);
             } catch (UnknownHostException ex) {
