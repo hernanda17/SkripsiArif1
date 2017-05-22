@@ -77,6 +77,7 @@ public class frame_Antrian extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sQLFunction1 = new skripsiarif.SQLFunction();
         jPanel1 = new javax.swing.JPanel();
         lblJam = new javax.swing.JLabel();
         lblMenit = new javax.swing.JLabel();
@@ -431,5 +432,6 @@ public class frame_Antrian extends javax.swing.JFrame {
     public javax.swing.JLabel lblSelanjutnya1;
     public javax.swing.JLabel lblSelanjutnya2;
     public javax.swing.JLabel lblSelanjutnya3;
+    private skripsiarif.SQLFunction sQLFunction1;
     // End of variables declaration//GEN-END:variables
 }
