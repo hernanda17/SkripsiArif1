@@ -1160,22 +1160,43 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             datasource.addRow(new String[]{m1.antrianpoli1.get(i)});
         tblPoli1.setModel(datasource);
     }
+    
+    void refreshTabelPoli2()
+    {
+        datasource = new DefaultTableModel(new String[]{"Antrian"},0);
+        for(int i = m1.poli2; i < m1.antrianpoli2.size();i++)
+            datasource.addRow(new String[]{m1.antrianpoli2.get(i)});
+        tblPoli2.setModel(datasource);
+    }
+    
+    void refreshTabelPoli3()
+    {
+        datasource = new DefaultTableModel(new String[]{"Antrian"},0);
+        for(int i = m1.poli3; i < m1.antrianpoli3.size();i++)
+            datasource.addRow(new String[]{m1.antrianpoli3.get(i)});
+        tblPoli3.setModel(datasource);
+    }
+    
+    void refreshTabelPoli4()
+    {
+        datasource = new DefaultTableModel(new String[]{"Antrian"},0);
+        for(int i = m1.poli4; i < m1.antrianpoli4.size();i++)
+            datasource.addRow(new String[]{m1.antrianpoli4.get(i)});
+        tblPoli4.setModel(datasource);
+    }
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         try {
-            m1.poli2 = m1.poli2+1;
-            int lanjut = m1.poli2;
-            String id = m1.antrianpoli2.get(lanjut);
-            int lanjutt = lanjut +1;
-            String idlanjut;
-            if(m1.antrianpoli2.size()>lanjutt)
-            {
-                idlanjut= m1.antrianpoli2.get(lanjutt);
-            }else
-            {
-                idlanjut = "kosong";
-            }
-            String kirim = "1|"+id+"|"+idlanjut;
+            int lanjut = m1.poli2+1;
+            String id;
+            String idSekarang = m1.antrianpoli2.get(m1.poli2);
+            if(lanjut < m1.antrianpoli2.size())
+             id = m1.antrianpoli2.get(lanjut);
+            else
+             id = "kosong";
+            String kirim = "1|"+idSekarang+"|"+id;
             m1.send(kirim,2203);
+            m1.poli2 = m1.poli2+1;
+            refreshTabelPoli2();
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -1185,20 +1206,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         try {
-            m1.poli3 = m1.poli3+1;
-            int lanjut = m1.poli3;
-            String id = m1.antrianpoli3.get(lanjut);
-            int lanjutt = lanjut +1;
-            String idlanjut;
-            if(m1.antrianpoli3.size()>lanjutt)
-            {
-                idlanjut= m1.antrianpoli3.get(lanjutt);
-            }else
-            {
-                idlanjut = "kosong";
-            }
-            String kirim = "2|"+id+"|"+idlanjut;
+            int lanjut = m1.poli3+1;
+            String id;
+            String idSekarang = m1.antrianpoli3.get(m1.poli3);
+            if(lanjut < m1.antrianpoli3.size())
+             id = m1.antrianpoli3.get(lanjut);
+            else
+             id = "kosong";
+            String kirim = "2|"+idSekarang+"|"+id;
             m1.send(kirim,2203);
+            m1.poli3 = m1.poli3+1;
+            refreshTabelPoli3();
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -1208,20 +1226,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         try {
-            m1.poli4 = m1.poli4+1;
-            int lanjut = m1.poli4;
-            String id = m1.antrianpoli4.get(lanjut);
-            int lanjutt = lanjut +1;
-            String idlanjut;
-            if(m1.antrianpoli4.size()>lanjutt)
-            {
-                idlanjut= m1.antrianpoli4.get(lanjutt);
-            }else
-            {
-                idlanjut = "kosong";
-            }
-            String kirim = "3|"+id+"|"+idlanjut;
+            int lanjut = m1.poli4+1;
+            String id;
+            String idSekarang = m1.antrianpoli4.get(m1.poli4);
+            if(lanjut < m1.antrianpoli4.size())
+             id = m1.antrianpoli4.get(lanjut);
+            else
+             id = "kosong";
+            String kirim = "3|"+idSekarang+"|"+id;
             m1.send(kirim,2203);
+            m1.poli4 = m1.poli4+1;
+            refreshTabelPoli4();
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

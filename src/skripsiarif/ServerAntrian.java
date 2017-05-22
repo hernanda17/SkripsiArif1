@@ -59,12 +59,12 @@ public class ServerAntrian implements Runnable{
           fa.lblSelanjutnya1.setText(pecah[2]);
         }
         else if(pecah[0].equalsIgnoreCase("2")){
-          fa.lblAntrian2.setText(pecah[1]);
-          fa.lblSelanjutnya2.setText(pecah[2]);
-        }
-        else if(pecah[0].equalsIgnoreCase("3")){
           fa.lblAntrian3.setText(pecah[1]);
           fa.lblSelanjutnya3.setText(pecah[2]);
+        }
+        else if(pecah[0].equalsIgnoreCase("3")){
+          fa.lblAntrian2.setText(pecah[1]);
+          fa.lblSelanjutnya2.setText(pecah[2]);
         }
     }
     
