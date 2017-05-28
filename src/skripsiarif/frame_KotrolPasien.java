@@ -30,7 +30,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     String idAdmin;
     String namaAdmin;
     String usernameAdmin;
-    boolean isloggin = true;
+    boolean isloggin = false;
     ArrayList <String[]> bigdata;
     ArrayList <String[]> bigdataDeposit;
     ArrayList <String[]> bigdataPembayaran;
@@ -132,14 +132,15 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         fKonfig = new javax.swing.JInternalFrame();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTindak = new javax.swing.JTable();
         jLabel20 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtIdTindakan = new javax.swing.JTextField();
+        txtNamaTindakan = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtBiayaTindakan = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -807,9 +808,9 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         fKonfig.setIconifiable(true);
         fKonfig.setMaximizable(true);
         fKonfig.setTitle("Konfigurasi");
-        fKonfig.setVisible(true);
+        fKonfig.setVisible(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTindak.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -820,7 +821,12 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        jScrollPane7.setViewportView(jTable1);
+        tblTindak.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTindakMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tblTindak);
 
         jLabel20.setText("ID : ");
 
@@ -832,6 +838,13 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);
+            }
+        });
+
+        jButton16.setText("Ubah");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
             }
         });
 
@@ -848,14 +861,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                             .addComponent(jLabel20))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField1)))
+                            .addComponent(txtNamaTindakan)
+                            .addComponent(txtIdTindakan)))
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton15)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addComponent(jButton16)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton15))
                         .addGroup(jPanel8Layout.createSequentialGroup()
                             .addComponent(jLabel22)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtBiayaTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7))
         );
@@ -868,18 +884,20 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIdTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNamaTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton15)
-                .addContainerGap(257, Short.MAX_VALUE))
+                    .addComponent(txtBiayaTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton16)
+                    .addComponent(jButton15))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout fKonfigLayout = new javax.swing.GroupLayout(fKonfig.getContentPane());
@@ -893,7 +911,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        fKonfig.setBounds(110, 40, 690, 430);
+        fKonfig.setBounds(180, 40, 690, 430);
         jDesktopPane1.add(fKonfig, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Pasien");
@@ -947,6 +965,11 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jMenu2.setText("Konfigurasi");
 
         jMenuItem9.setText("Setting");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem9);
 
         jMenuBar1.add(jMenu2);
@@ -992,12 +1015,13 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             dbaccess db = new dbaccess();
             String [] field = {"`id_pasien`","`nama_pasien`","`deposit`"};
             String where = "id_rfid = '"+ID+"'";
-            bigdataPembayaran = db.SelectTable(field, "tblpasien", where, null, null);
+            bigdataDeposit = db.SelectTable(field, "tblpasien", where, null, null);
         } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    int selected_tindakan;
     int selected_pasien;
     int selected_deposit=0;
     
@@ -1026,10 +1050,34 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             }
         });
     }
+       
+    public void selecttable_tindakan()
+    {
+        tblTindak.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        ListSelectionModel rowSM = tblTindak.getSelectionModel();
+        tblTindak.setRowSelectionAllowed(true);
+        tblTindak.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        rowSM.addListSelectionListener(new ListSelectionListener() {
+
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting()) return;
+
+                ListSelectionModel lsm =(ListSelectionModel) e.getSource();
+
+                if (lsm.isSelectionEmpty()) {
+              //      System.out.println("No rows are selected.");
+                } else {
+                    selected_tindakan = lsm.getMinSelectionIndex();
+                    autorefreshTindakan();
+                //    System.out.println("Selected : "+selected_pasien);
+                }
+            }
+        });
+    }
    public void tindakan()
         {
             try {
-             datasource = new DefaultTableModel(new String[]{"id_tindakan","nama_tindakan","harga_tindakan"},0);
+            datasource = new DefaultTableModel(new String[]{"id_tindakan","nama_tindakan","harga_tindakan"},0);
             dbaccess db = new dbaccess();
             String [] field = {"id_tindakan","nama_tindakan","harga_tindakan"};
             bigdataTindakan = db.SelectTable(field, "tbltindakan", null, null, null);
@@ -1366,8 +1414,60 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        
+        try {
+            dbaccess db = new dbaccess();
+             String [][] data = {{"nama_tindakan",txtNamaTindakan.getText()},
+                      {"harga_tindakan",""+txtBiayaTindakan.getText()}
+                  };
+                  if(db.AutoInsert(data, "tbltindakan"))
+                  {
+                    refreshTindakan();
+                      JOptionPane.showMessageDialog(this, "Data Tindakan Telah Berhasil Disimpan !");
+                  }else
+                  {
+                  }
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        fKonfig.setVisible(true);
+        refreshTindakan();
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    void refreshTindakan()
+    {
+        tindakan();
+        datasource = new DefaultTableModel(new String[]{"id tindakan","Nama Tindakan","Harga Tindakan"},0);
+        for(int i = 0 ; i < bigdataTindakan.size();i++)
+        {
+            datasource.addRow(bigdataTindakan.get(i));
+        }
+        tblTindak.setModel(datasource);
+    }
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        try {
+            dbaccess db = new dbaccess();
+            String [][] data = {
+                         {"nama_tindakan",""+txtNamaTindakan.getText()}, 
+                         {"harga_tindakan",""+txtBiayaTindakan.getText()}
+                     };
+             String id = txtIdTindakan.getText();
+             String where = "id_tindakan = ' "+id+"'";
+             if(db.AutoUpdate(data, "tbltindakan", where))
+             {
+                 refreshTindakan();
+                 JOptionPane.showMessageDialog(this, "Data Tindakan Telah Berhasil Diubah !");
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void tblTindakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTindakMouseClicked
+       selecttable_tindakan();
+    }//GEN-LAST:event_tblTindakMouseClicked
 
     
     public void autorefresh()
@@ -1376,6 +1476,12 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         txtIdRfid.setText(bigdata.get(selected_pasien)[1]);
         txtNamaPasien.setText(bigdata.get(selected_pasien)[2]);
         txtAlamatPasien.setText(bigdata.get(selected_pasien)[3]);
+    }
+       public void autorefreshTindakan()
+    {
+        txtIdTindakan.setText(bigdataTindakan.get(selected_tindakan)[0]);
+        txtNamaTindakan.setText(bigdataTindakan.get(selected_tindakan)[1]);
+        txtBiayaTindakan.setText(bigdataTindakan.get(selected_tindakan)[2]);
     }
         public void autorefreshDeposit()
     {
@@ -1437,6 +1543,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1496,10 +1603,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblDeposit;
     private javax.swing.JLabel lblDepositPembayaran;
     private javax.swing.JLabel lblIdAdminDeposit;
@@ -1511,13 +1614,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     public javax.swing.JTable tblPoli2;
     public javax.swing.JTable tblPoli3;
     public javax.swing.JTable tblPoli4;
+    private javax.swing.JTable tblTindak;
     private javax.swing.JTextArea txtAlamatPasien;
     private javax.swing.JPasswordField txtAuth;
+    private javax.swing.JTextField txtBiayaTindakan;
     private javax.swing.JTextField txtCatatan;
     private javax.swing.JTextField txtDeposit;
     private javax.swing.JTextField txtIdPasien;
     private javax.swing.JTextField txtIdRfid;
+    private javax.swing.JTextField txtIdTindakan;
     private javax.swing.JTextField txtNamaPasien;
+    private javax.swing.JTextField txtNamaTindakan;
     private javax.swing.JTextField txtRfidDeposit;
     private javax.swing.JTextField txtRfidPembayaran;
     private javax.swing.JTextField txtUsername;
