@@ -101,20 +101,24 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         txtRfidDeposit = new javax.swing.JTextField();
         jButton8 = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        txtPinDeposit = new javax.swing.JPasswordField();
         fPembayaran = new javax.swing.JInternalFrame();
         jPanel6 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        txtRfidPembayaran = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
-        lblNamaPembayaran = new javax.swing.JLabel();
-        lblDepositPembayaran = new javax.swing.JLabel();
-        cmbTindakan = new javax.swing.JComboBox();
         jButton10 = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
         txtCatatan = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        cmbTindakan = new javax.swing.JComboBox();
+        lblDepositPembayaran = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        lblNamaPembayaran = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtRfidPembayaran = new javax.swing.JTextField();
+        txtPinPembayaran = new javax.swing.JPasswordField();
         fAntrian = new javax.swing.JInternalFrame();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -476,34 +480,42 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             }
         });
 
+        jLabel24.setText("ID RFID : ");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel14))
-                .addGap(21, 21, 21)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblidNamaPasienDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblIdAdminDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtRfidDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblIdPasienDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel14))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblidNamaPasienDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblIdAdminDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton7)
-                                    .addComponent(txtDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 405, Short.MAX_VALUE)))
+                                    .addComponent(txtRfidDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblIdPasienDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jButton7)
+                                            .addComponent(txtDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPinDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 405, Short.MAX_VALUE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -514,8 +526,12 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                     .addComponent(jLabel14)
                     .addComponent(txtRfidDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24)
+                    .addComponent(txtPinDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addComponent(jButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(lblIdPasienDeposit))
@@ -537,7 +553,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                     .addComponent(txtDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout fDepositLayout = new javax.swing.GroupLayout(fDeposit.getContentPane());
@@ -557,29 +573,10 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         fPembayaran.setClosable(true);
         fPembayaran.setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         fPembayaran.setIconifiable(true);
+        fPembayaran.setResizable(true);
         fPembayaran.setTitle("Pembayaran");
+        fPembayaran.setMinimumSize(new java.awt.Dimension(300, 400));
         fPembayaran.setVisible(false);
-
-        jLabel15.setText("RFID : ");
-
-        jLabel16.setText("Nama Pasien :");
-
-        jLabel17.setText("Deposit :");
-
-        jLabel18.setText("Tindakan :");
-
-        jButton9.setText("Cari");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        lblNamaPembayaran.setText("Nama");
-
-        lblDepositPembayaran.setText("Deposit");
-
-        cmbTindakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton10.setText("Proses");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -590,40 +587,74 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
 
         jLabel19.setText("Catatan : ");
 
+        jLabel18.setText("Tindakan :");
+
+        cmbTindakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblDepositPembayaran.setText("Deposit");
+
+        jLabel17.setText("Deposit :");
+
+        jLabel16.setText("Nama Pasien :");
+
+        lblNamaPembayaran.setText("Nama");
+
+        jButton9.setText("Cari");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("PIN :");
+
+        jLabel15.setText("RFID : ");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(txtRfidPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton9))
-                    .addComponent(lblNamaPembayaran)
-                    .addComponent(lblDepositPembayaran)
-                    .addComponent(cmbTindakan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCatatan))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNamaPembayaran)
+                            .addComponent(cmbTindakan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCatatan, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDepositPembayaran)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtPinPembayaran, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(txtRfidPembayaran))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton9)))
+                .addGap(118, 118, 118))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtRfidPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtRfidPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(jButton9)
+                    .addComponent(txtPinPembayaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(lblNamaPembayaran))
@@ -641,7 +672,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                     .addComponent(txtCatatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton10)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(115, 115, 115))
         );
 
         javax.swing.GroupLayout fPembayaranLayout = new javax.swing.GroupLayout(fPembayaran.getContentPane());
@@ -1014,8 +1045,20 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         try {
             dbaccess db = new dbaccess();
             String [] field = {"`id_pasien`","`nama_pasien`","`deposit`"};
-            String where = "id_rfid = '"+ID+"'";
+            String where = "id_rfid = '"+ID+"' and pin = "+txtPinDeposit.getText();
             bigdataDeposit = db.SelectTable(field, "tblpasien", where, null, null);
+            bigdataPembayaran = db.SelectTable(field, "tblpasien", where, null, null);
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void refreshTabelPembayaran(String ID)
+    {
+        try {
+            dbaccess db = new dbaccess();
+            String [] field = {"`id_pasien`","`nama_pasien`","`deposit`"};
+            String where = "id_rfid = '"+ID+"' and pin = "+txtPinPembayaran.getText();
+            bigdataPembayaran = db.SelectTable(field, "tblpasien", where, null, null);
         } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1249,7 +1292,10 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         refreshTabelDeposit(txtRfidDeposit.getText());
-        autorefreshDeposit();
+        if(bigdataDeposit.size()>0)
+            autorefreshDeposit();
+        else
+            JOptionPane.showMessageDialog(this, "Pin yang anda masukan salah !, silahkan ulangi");
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void txtRfidDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRfidDepositActionPerformed
@@ -1267,8 +1313,11 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        refreshTabelDeposit(txtRfidPembayaran.getText());
-        autorefreshPembayaran();
+        refreshTabelPembayaran(txtRfidPembayaran.getText());
+        if(bigdataPembayaran.size() > 0)
+            autorefreshPembayaran();
+        else
+            JOptionPane.showMessageDialog(this, "Pin yang anda masukan Salah ! silahkan ulangi");
         tindakan();
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -1568,6 +1617,8 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1625,6 +1676,8 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JTextField txtIdTindakan;
     private javax.swing.JTextField txtNamaPasien;
     private javax.swing.JTextField txtNamaTindakan;
+    private javax.swing.JPasswordField txtPinDeposit;
+    private javax.swing.JPasswordField txtPinPembayaran;
     private javax.swing.JTextField txtRfidDeposit;
     private javax.swing.JTextField txtRfidPembayaran;
     private javax.swing.JTextField txtUsername;
