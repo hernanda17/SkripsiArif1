@@ -27,10 +27,11 @@ import javax.swing.JOptionPane;
 public class ServerDaftarAntrian implements Runnable{
 
    public frame_daftarAntrian fa;
+   public int port;
     public void run(){  
         try {
             System.out.println("jalan");
-            ServerSocket serverSocket = new ServerSocket(2204);
+            ServerSocket serverSocket = new ServerSocket(port);
             while (true)
                 {
                     Socket clientSocket = serverSocket.accept(); 
@@ -50,10 +51,12 @@ public class ServerDaftarAntrian implements Runnable{
         {
             if(dapat.length > 2)
             {
+                fa.id = dapat[1];
                 fa.nama = dapat[2];
                 fa.alamat = dapat[3];
                 fa.lblNama.setText(dapat[2]);
                 fa.lblAlamat.setText(dapat[3]);
+                fa.lblDeposit.setText(dapat[5]);
             }else 
             {
                  JOptionPane.showMessageDialog(fa,"Data tidak ditemukan"+ dapat[1]);
@@ -61,7 +64,7 @@ public class ServerDaftarAntrian implements Runnable{
         }
         else if(dapat[0].equalsIgnoreCase("1"))
         {
-            JOptionPane.showMessageDialog(fa,"Anda Nomor Antrian ke -"+ dapat[1]);
+            JOptionPane.showMessageDialog(fa,"Anda Nomor Antrian ke : "+ dapat[1]);
         }
     }
     

@@ -5,6 +5,8 @@
 package skripsiarif;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static skripsiarif.Server.config;
 
 /**
  *
@@ -30,9 +33,29 @@ public class ServerAntrian implements Runnable{
    public ArrayList <String> antrianpoli2;
    public ArrayList <String> antrianpoli3;
    public ArrayList <String> antrianpoli4;
+   public static HashMap<String,String> config = new HashMap<String,String> (); 
+   
+   public static void Config() throws FileNotFoundException, IOException 
+     {
+         BufferedReader br = new BufferedReader(new FileReader("config.ini"));
+        try {
+            String line = br.readLine();
+            String [] split;
+            do{
+                split = line.split("=");
+                config.put(split[0], split[1]);
+                line = br.readLine();
+            }
+            while (line != null) ;
+        } finally {
+            br.close();
+        }
+     }
     public void run(){  
         try {
-            ServerSocket serverSocket = new ServerSocket(2203);
+            Config();
+            int port = Integer.parseInt(config.get("portantrian"));
+            ServerSocket serverSocket = new ServerSocket(port);
             while (true)
                 {
                     Socket clientSocket = serverSocket.accept(); 

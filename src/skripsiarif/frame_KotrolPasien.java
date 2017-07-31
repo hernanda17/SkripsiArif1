@@ -4,12 +4,17 @@
  */
 package skripsiarif;
 
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.activation.DataSource;
@@ -18,6 +23,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import static skripsiarif.Server.portantrian;
 
 /**
  *
@@ -34,19 +40,54 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     ArrayList <String[]> bigdata;
     ArrayList <String[]> bigdataDeposit;
     ArrayList <String[]> bigdataPembayaran;
+    ArrayList <String[]> dataPasien;
     ArrayList <String[]> bigdataTindakan;
+    ArrayList <String[]> bigdataantri;
+   public static HashMap<String,String> config = new HashMap<String,String> (); 
+    int portantrian;
     public frame_KotrolPasien() {
-        initComponents();
-        server();
+        try {
+            initComponents();
+            txtIdPasien.setVisible(false);
+            jLabel5.setVisible(false);
+            JmLogout.setVisible(false);
+            Config();
+            server();
+            portantrian = Integer.parseInt(config.get("portantrian"));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     Server m1;
     public void server()
     {
-        m1=new Server();  
+        m1=new Server(); 
+        m1.config = this.config;
         m1.fa = this;
         Thread t1 =new Thread(m1); 
         t1.start();
     }
+    
+    
+   public static void Config() throws FileNotFoundException, IOException 
+     {
+         BufferedReader br = new BufferedReader(new FileReader("config.ini"));
+        try {
+            String line = br.readLine();
+            String [] split;
+            do{
+                split = line.split("=");
+                config.put(split[0], split[1]);
+                line = br.readLine();
+            }
+            while (line != null) ;
+        } finally {
+            br.close();
+        }
+     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,11 +110,14 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         txtIdPasien = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtNamaPasien = new javax.swing.JTextField();
+        txtIdentitas = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        txtKK = new javax.swing.JTextField();
+        jLabel44 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtpencarian = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
@@ -100,9 +144,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txtRfidDeposit = new javax.swing.JTextField();
-        jButton8 = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
-        txtPinDeposit = new javax.swing.JPasswordField();
         fPembayaran = new javax.swing.JInternalFrame();
         jPanel6 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
@@ -133,6 +174,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
         fKonfig = new javax.swing.JInternalFrame();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -145,16 +187,67 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jButton15 = new javax.swing.JButton();
         jButton16 = new javax.swing.JButton();
+        txtDetailTindakan = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
+        jButton22 = new javax.swing.JButton();
+        fPIN = new javax.swing.JInternalFrame();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        txtRFIDPin = new javax.swing.JTextField();
+        jLabel28 = new javax.swing.JLabel();
+        lblNamaPin = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        lblAlamatPin = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jButton18 = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
+        lblKonfirmas = new javax.swing.JLabel();
+        txtPin = new javax.swing.JPasswordField();
+        txtKonfirmasiPin = new javax.swing.JPasswordField();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel29 = new javax.swing.JLabel();
+        txtRFIDLupPin = new javax.swing.JTextField();
+        jLabel31 = new javax.swing.JLabel();
+        lblNamaPinKon = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        lblAlamatPinKon = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jButton20 = new javax.swing.JButton();
+        jLabel38 = new javax.swing.JLabel();
+        lblKonfirmasK = new javax.swing.JLabel();
+        txtPinKon = new javax.swing.JPasswordField();
+        txtKonfirmasiPinKon = new javax.swing.JPasswordField();
+        lblIdentitas = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        lblNamaKK = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        fAdmin = new javax.swing.JInternalFrame();
+        jPanel10 = new javax.swing.JPanel();
+        txtNamaAdmin = new javax.swing.JTextField();
+        jLabel40 = new javax.swing.JLabel();
+        txtUsernameAdmin = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        txtauthAdmin = new javax.swing.JPasswordField();
+        cmbAdmin = new javax.swing.JComboBox();
+        jLabel43 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuLogin = new javax.swing.JMenu();
+        JmLogin = new javax.swing.JMenuItem();
+        JmLogout = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         jMenuItem5.setText("jMenuItem5");
 
@@ -197,7 +290,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,28 +311,44 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
 
         jLabel5.setText("ID :");
 
+        jLabel25.setText("IdenTitas :");
+
+        jLabel44.setText("Nama KK:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtIdPasien, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                            .addComponent(txtIdRfid, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                            .addComponent(txtNamaPasien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel1))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtIdPasien, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                        .addComponent(txtIdRfid, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                        .addComponent(txtNamaPasien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIdentitas)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtKK)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,10 +365,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtNamaPasien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(txtIdentitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel44)
+                    .addComponent(txtKK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Aksi"));
@@ -285,13 +401,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Hapus");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         jLabel4.setText("Pencarian :");
 
         jButton5.setText("Cari");
@@ -308,7 +417,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -328,9 +436,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtpencarian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -362,7 +468,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jDesktopPane1.add(fPasien, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         fLogin.setTitle("LOGIN");
-        fLogin.setVisible(false);
+        fLogin.setVisible(true);
 
         jLabel6.setText("Username :");
 
@@ -430,7 +536,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        fLogin.setBounds(350, 120, 380, 200);
+        fLogin.setBounds(340, 160, 380, 200);
         jDesktopPane1.add(fLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         fDeposit.setClosable(true);
@@ -472,15 +578,11 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 txtRfidDepositActionPerformed(evt);
             }
         });
-
-        jButton8.setText("Cari");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+        txtRfidDeposit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtRfidDepositKeyPressed(evt);
             }
         });
-
-        jLabel24.setText("ID RFID : ");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -489,14 +591,13 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12)
                             .addComponent(jLabel13)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel14))
+                            .addComponent(jLabel9))
                         .addGap(21, 21, 21)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblidNamaPasienDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -504,34 +605,26 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                             .addComponent(lblIdAdminDeposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtRfidDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lblIdPasienDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jButton7)
                                             .addComponent(txtDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPinDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 405, Short.MAX_VALUE))))
+                                    .addComponent(txtRfidDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 35, Short.MAX_VALUE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
+                        .addComponent(jLabel14)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(51, 51, 51)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtRfidDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtPinDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addComponent(jButton8)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(lblIdPasienDeposit))
@@ -553,7 +646,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                     .addComponent(txtDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton7)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout fDepositLayout = new javax.swing.GroupLayout(fDeposit.getContentPane());
@@ -564,10 +657,13 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         );
         fDepositLayout.setVerticalGroup(
             fDepositLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(fDepositLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(64, 64, 64))
         );
 
-        fDeposit.setBounds(190, 50, 680, 420);
+        fDeposit.setBounds(80, 40, 310, 340);
         jDesktopPane1.add(fDeposit, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         fPembayaran.setClosable(true);
@@ -588,8 +684,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jLabel19.setText("Catatan : ");
 
         jLabel18.setText("Tindakan :");
-
-        cmbTindakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblDepositPembayaran.setText("Deposit");
 
@@ -615,7 +709,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -672,7 +766,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                     .addComponent(txtCatatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton10)
-                .addGap(115, 115, 115))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout fPembayaranLayout = new javax.swing.GroupLayout(fPembayaran.getContentPane());
@@ -683,10 +777,10 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         );
         fPembayaranLayout.setVerticalGroup(
             fPembayaranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        fPembayaran.setBounds(190, 70, 400, 250);
+        fPembayaran.setBounds(100, 80, 370, 300);
         jDesktopPane1.add(fPembayaran, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         fAntrian.setClosable(true);
@@ -776,14 +870,23 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             }
         });
 
+        jButton17.setText("Ambil Antrian");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -792,7 +895,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
+                        .addGap(13, 13, 13)
                         .addComponent(jButton12)
                         .addGap(65, 65, 65)
                         .addComponent(jButton11)
@@ -800,24 +903,28 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                         .addComponent(jButton13)
                         .addGap(62, 62, 62)
                         .addComponent(jButton14)))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton11)
                     .addComponent(jButton13)
                     .addComponent(jButton12)
                     .addComponent(jButton14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jButton17)
+                        .addGap(0, 300, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout fAntrianLayout = new javax.swing.GroupLayout(fAntrian.getContentPane());
@@ -879,30 +986,46 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             }
         });
 
+        jLabel26.setText("Detail Tindakan :");
+
+        jButton22.setText("Hapus");
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNamaTindakan)
-                            .addComponent(txtIdTindakan)))
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addComponent(jButton16)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton15))
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addComponent(jLabel22)
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel21)
+                                .addComponent(jLabel20))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtBiayaTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNamaTindakan)
+                                .addComponent(txtIdTindakan)))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jButton22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton15))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtBiayaTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDetailTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7))
         );
@@ -924,11 +1047,16 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(txtBiayaTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(txtDetailTindakan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton15)
                     .addComponent(jButton16)
-                    .addComponent(jButton15))
-                .addContainerGap(236, Short.MAX_VALUE))
+                    .addComponent(jButton22))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout fKonfigLayout = new javax.swing.GroupLayout(fKonfig.getContentPane());
@@ -945,15 +1073,364 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         fKonfig.setBounds(180, 40, 690, 430);
         jDesktopPane1.add(fKonfig, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jMenu1.setText("Pasien");
+        fPIN.setClosable(true);
+        fPIN.setTitle("PIN");
+        fPIN.setVisible(false);
 
-        jMenuItem2.setText("LOGIN");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+        jLabel27.setText("ID RFID :");
+
+        txtRFIDPin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtRFIDPinKeyPressed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+
+        jLabel28.setText("NAMA : ");
+
+        lblNamaPin.setText("nama");
+
+        jLabel30.setText("ALAMAT :");
+
+        lblAlamatPin.setText("alamat");
+
+        jLabel32.setText("PIN Baru :");
+
+        jLabel33.setText("Konfirmasi :");
+
+        jButton18.setText("Simpan");
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton18ActionPerformed(evt);
+            }
+        });
+
+        jLabel34.setText("Pin : ");
+
+        lblKonfirmas.setText("Benar");
+
+        txtKonfirmasiPin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKonfirmasiPinKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtRFIDPin, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblNamaPin))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel30)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblAlamatPin))
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addComponent(jLabel34)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblKonfirmas)
+                            .addGap(55, 55, 55)
+                            .addComponent(jButton18))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel33)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtKonfirmasiPin))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel9Layout.createSequentialGroup()
+                                .addComponent(jLabel32)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27)
+                    .addComponent(txtRFIDPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(lblNamaPin))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(lblAlamatPin))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel32)
+                    .addComponent(txtPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel33)
+                    .addComponent(txtKonfirmasiPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton18)
+                    .addComponent(jLabel34)
+                    .addComponent(lblKonfirmas))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("PIN Baru", jPanel9);
+
+        jLabel29.setText("ID RFID :");
+
+        txtRFIDLupPin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtRFIDLupPinKeyPressed(evt);
+            }
+        });
+
+        jLabel31.setText("NAMA : ");
+
+        lblNamaPinKon.setText("nama");
+
+        jLabel35.setText("ALAMAT :");
+
+        lblAlamatPinKon.setText("alamat");
+
+        jLabel36.setText("PIN Baru :");
+
+        jLabel37.setText("Konfirmasi :");
+
+        jButton20.setText("Simpan");
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+
+        jLabel38.setText("Pin : ");
+
+        lblKonfirmasK.setText("Benar");
+
+        txtKonfirmasiPinKon.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtKonfirmasiPinKonKeyReleased(evt);
+            }
+        });
+
+        lblIdentitas.setText("identitas");
+
+        jLabel39.setText("IDentitas :");
+
+        lblNamaKK.setText("nama KK");
+
+        jLabel45.setText("NAMA KK  :");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel29)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtRFIDLupPin, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel11Layout.createSequentialGroup()
+                            .addComponent(jLabel38)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lblKonfirmasK)
+                            .addGap(55, 55, 55)
+                            .addComponent(jButton20))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel37)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtKonfirmasiPinKon))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
+                                .addComponent(jLabel36)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPinKon, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel45)
+                            .addComponent(jLabel31))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNamaPinKon)
+                            .addComponent(lblNamaKK)))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel35)
+                            .addComponent(jLabel39))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIdentitas)
+                            .addComponent(lblAlamatPinKon))))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(txtRFIDLupPin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel45)
+                    .addComponent(lblNamaKK))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(lblNamaPinKon))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(lblAlamatPinKon))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(lblIdentitas))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(txtPinKon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel37)
+                    .addComponent(txtKonfirmasiPinKon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton20)
+                    .addComponent(jLabel38)
+                    .addComponent(lblKonfirmasK))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Lupa Pin", jPanel11);
+
+        javax.swing.GroupLayout fPINLayout = new javax.swing.GroupLayout(fPIN.getContentPane());
+        fPIN.getContentPane().setLayout(fPINLayout);
+        fPINLayout.setHorizontalGroup(
+            fPINLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
+        );
+        fPINLayout.setVerticalGroup(
+            fPINLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1)
+        );
+
+        fPIN.setBounds(420, 60, 240, 370);
+        jDesktopPane1.add(fPIN, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        fAdmin.setClosable(true);
+        fAdmin.setIconifiable(true);
+        fAdmin.setMaximizable(true);
+        fAdmin.setTitle("Daftar Admin");
+        fAdmin.setVisible(false);
+
+        jLabel40.setText("Nama Admin :");
+
+        jLabel41.setText("Username :");
+
+        jLabel42.setText("Auth :");
+
+        cmbAdmin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "POLI GIGI", "POLI ANAK", "POLI UMUM", "POLI IBU" }));
+
+        jLabel43.setText("Auth :");
+
+        jButton3.setText("DAFTAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNamaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel41)
+                            .addComponent(jLabel42)
+                            .addComponent(jLabel43))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbAdmin, 0, 122, Short.MAX_VALUE)
+                            .addComponent(txtUsernameAdmin)
+                            .addComponent(txtauthAdmin))))
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNamaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtUsernameAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel42)
+                    .addComponent(txtauthAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel43))
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout fAdminLayout = new javax.swing.GroupLayout(fAdmin.getContentPane());
+        fAdmin.getContentPane().setLayout(fAdminLayout);
+        fAdminLayout.setHorizontalGroup(
+            fAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        fAdminLayout.setVerticalGroup(
+            fAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        fAdmin.setBounds(10, 40, 290, 240);
+        jDesktopPane1.add(fAdmin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        menuLogin.setText("Pasien");
+
+        JmLogin.setText("LOGIN");
+        JmLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmLoginActionPerformed(evt);
+            }
+        });
+        menuLogin.add(JmLogin);
+
+        JmLogout.setText("LOGOUT");
+        JmLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JmLogoutActionPerformed(evt);
+            }
+        });
+        menuLogin.add(JmLogout);
 
         jMenuItem1.setText("Data Pasien");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -961,7 +1438,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuLogin.add(jMenuItem1);
 
         jMenuItem3.setText("Deposit");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -969,7 +1446,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        menuLogin.add(jMenuItem3);
 
         jMenuItem4.setText("Pembayaran");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -977,9 +1454,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
                 jMenuItem4ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem4);
+        menuLogin.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem10.setText("PIN");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        menuLogin.add(jMenuItem10);
+
+        jMenuBar1.add(menuLogin);
 
         jMenu3.setText("Antrian");
 
@@ -1003,6 +1488,14 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem9);
 
+        jMenuItem2.setText("Daftar Admin");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -1024,11 +1517,10 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     public void refreshTabel()
     {
         try {
-             datasource = new DefaultTableModel(new String[]{"id_pasien","id_rfid","nama_pasien","alamat_pasien","identitas_pasien"},0);
-  
+             datasource = new DefaultTableModel(new String[]{"id_pasien","id_rfid","nama_pasien","alamat_pasien","identitas_pasien","nama_kk"},0);
             fPasien.setVisible(rootPaneCheckingEnabled);
             dbaccess db = new dbaccess();
-            String [] field = {"`id_pasien`","`id_rfid`","`nama_pasien`","`alamat_pasien`","`identitas_pasien`"};
+            String [] field = {"`id_pasien`","`id_rfid`","`nama_pasien`","`alamat_pasien`","`identitas_pasien`","`nama_kk`"};
             bigdata = db.SelectTable(field, "tblpasien", null, null, null);
             for(int i =0; i < bigdata.size();i++)
             {
@@ -1045,7 +1537,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         try {
             dbaccess db = new dbaccess();
             String [] field = {"`id_pasien`","`nama_pasien`","`deposit`"};
-            String where = "id_rfid = '"+ID+"' and pin = "+txtPinDeposit.getText();
+            String where = "id_rfid = '"+ID+"'";
             bigdataDeposit = db.SelectTable(field, "tblpasien", where, null, null);
             bigdataPembayaran = db.SelectTable(field, "tblpasien", where, null, null);
         } catch (SQLException ex) {
@@ -1059,6 +1551,17 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             String [] field = {"`id_pasien`","`nama_pasien`","`deposit`"};
             String where = "id_rfid = '"+ID+"' and pin = "+txtPinPembayaran.getText();
             bigdataPembayaran = db.SelectTable(field, "tblpasien", where, null, null);
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void getDataRFID(String ID)
+    {
+        try {
+            dbaccess db = new dbaccess();
+            String [] field = {"`id_pasien`","`nama_pasien`","`Alamat_pasien`","`identitas_pasien`","`nama_kk`"};
+            String where = "id_rfid = '"+ID+"'";
+            dataPasien = db.SelectTable(field, "tblpasien", where, null, null);
         } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1120,10 +1623,11 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
    public void tindakan()
         {
             try {
-            datasource = new DefaultTableModel(new String[]{"id_tindakan","nama_tindakan","harga_tindakan"},0);
+            datasource = new DefaultTableModel(new String[]{"id_tindakan","nama_tindakan","harga_tindakan","catatan"},0);
             dbaccess db = new dbaccess();
             String [] field = {"id_tindakan","nama_tindakan","harga_tindakan"};
-            bigdataTindakan = db.SelectTable(field, "tbltindakan", null, null, null);
+            String status = "status = 0";
+            bigdataTindakan = db.SelectTable(field, "tbltindakan", status, null, null);
         } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1146,16 +1650,24 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             String auth = txtAuth.getText();
             dbaccess db = new dbaccess();
             String [] field = {"`username`","`nama_admin`","`id_admin`"};
-            String where ="username = '"+ username +"' and  password_admin = '"+auth+"'";
+            String where ="username = '"+ username +"' and  password_admin = '"+auth+"' and status = 0";
             ArrayList <String[]> bigdata = db.SelectTable(field, "tbladmin",where, null, null);
             if(bigdata.size()>0)
             {
+                JmLogin.setVisible(false);
                 idAdmin = bigdata.get(0)[2];
                 namaAdmin = bigdata.get(0)[1];
                 usernameAdmin = bigdata.get(0)[0];
                 isloggin =true;
                 JOptionPane.showMessageDialog(this, "Selamat datang "+namaAdmin);
                 fLogin.setVisible(false);
+                JmLogout.setVisible(true);
+                txtUsername.setText("");
+                txtAuth.setText("");
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Username atau Password Salah ");
             }
         } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
@@ -1163,9 +1675,9 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void JmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmLoginActionPerformed
         fLogin.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_JmLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
@@ -1174,12 +1686,14 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             String idrfid = txtIdRfid.getText();
             String namaPasien = txtNamaPasien.getText();
             String alamatPasien = txtAlamatPasien.getText();
-            String identitasPasien = "";
+            String identitasPasien = txtIdentitas.getText();
+            String namakk = txtKK.getText();
            SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
             String [][] data = {{"timestamp",fmt.format(tgl)},
                 {"id_RFID",""+idrfid}, 
                 {"nama_pasien",""+namaPasien},
                 {"alamat_pasien",""+alamatPasien},
+                {"nama_kk",""+namakk},
                 {"identitas_pasien",""+identitasPasien}
             };
             if(db.AutoInsert(data, "tblpasien"))
@@ -1206,11 +1720,13 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             String idrfid = txtIdRfid.getText();
             String namaPasien = txtNamaPasien.getText();
             String alamatPasien = txtAlamatPasien.getText();
+            String nama_kk = txtKK.getText();
             String identitasPasien = "";
             String [][] data = {
                     {"id_RFID",""+idrfid}, 
                     {"nama_pasien",""+namaPasien},
                     {"alamat_pasien",""+alamatPasien},
+                    {"nama_kk",""+nama_kk},
                     {"identitas_pasien",""+identitasPasien}
                 };
             String where = "id_pasien = ' "+id+"'";
@@ -1230,10 +1746,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         refreshTabel();
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
          try {
@@ -1290,14 +1802,6 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        refreshTabelDeposit(txtRfidDeposit.getText());
-        if(bigdataDeposit.size()>0)
-            autorefreshDeposit();
-        else
-            JOptionPane.showMessageDialog(this, "Pin yang anda masukan salah !, silahkan ulangi");
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void txtRfidDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRfidDepositActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRfidDepositActionPerformed
@@ -1305,7 +1809,10 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if(isloggin)
         {
+            tindakan();
             fPembayaran.setVisible(true);
+            for(int i = 0 ; i < bigdataTindakan.size();i++)
+                cmbTindakan.addItem(bigdataTindakan.get(i)[1]);
         }else
         {
           JOptionPane.showMessageDialog(this,"Silahkan Login Terlebih Dahulu !");
@@ -1355,18 +1862,24 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         try {
             int lanjut = m1.poli1+1;
             String id;
-            String idSekarang = m1.antrianpoli1.get(m1.poli1);
+            String idSekarang = m1.antrianpoli1.get(m1.poli1)[0];
             if(lanjut < m1.antrianpoli1.size())
-             id = m1.antrianpoli1.get(lanjut);
+             id = m1.antrianpoli1.get(lanjut)[0];
             else
              id = "kosong";
             String kirim = "0|"+idSekarang+"|"+id;
-            m1.send(kirim,2203);
+            m1.send(kirim,m1.config.get("ipantrian"),portantrian);
             m1.poli1 = m1.poli1+1;
             refreshTabelPoli1();
+            dbaccess db = new dbaccess();
+            String [][] data = {{"status","1"}};
+            String where = "id_pasien = ' "+idSekarang+"'";
+            db.AutoUpdate(data, "tblantri", where);
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -1375,7 +1888,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     {
         datasource = new DefaultTableModel(new String[]{"Antrian"},0);
         for(int i = m1.poli1; i < m1.antrianpoli1.size();i++)
-            datasource.addRow(new String[]{m1.antrianpoli1.get(i)});
+            datasource.addRow(new String[]{m1.antrianpoli1.get(i)[0]});
         tblPoli1.setModel(datasource);
     }
     
@@ -1412,12 +1925,18 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             else
              id = "kosong";
             String kirim = "1|"+idSekarang+"|"+id;
-            m1.send(kirim,2203);
+            m1.send(kirim,m1.config.get("ipantrian"),portantrian);
             m1.poli2 = m1.poli2+1;
             refreshTabelPoli2();
+            dbaccess db = new dbaccess();
+            String [][] data = {{"status","1"}};
+            String where = "id_pasien = ' "+idSekarang+"'";
+            db.AutoUpdate(data, "tblantri", where);
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -1432,12 +1951,18 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             else
              id = "kosong";
             String kirim = "2|"+idSekarang+"|"+id;
-            m1.send(kirim,2203);
+            m1.send(kirim,m1.config.get("ipantrian"),portantrian);
             m1.poli3 = m1.poli3+1;
             refreshTabelPoli3();
+            dbaccess db = new dbaccess();
+            String [][] data = {{"status","1"}};
+            String where = "id_pasien = ' "+idSekarang+"'";
+            db.AutoUpdate(data, "tblantri", where);
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton13ActionPerformed
@@ -1452,12 +1977,18 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             else
              id = "kosong";
             String kirim = "3|"+idSekarang+"|"+id;
-            m1.send(kirim,2203);
+            m1.send(kirim,m1.config.get("ipantrian"),portantrian);
             m1.poli4 = m1.poli4+1;
             refreshTabelPoli4();
+            dbaccess db = new dbaccess();
+            String [][] data = {{"status","1"}};
+            String where = "id_pasien = ' "+idSekarang+"'";
+            db.AutoUpdate(data, "tblantri", where);
         } catch (UnknownHostException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton14ActionPerformed
@@ -1466,7 +1997,8 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         try {
             dbaccess db = new dbaccess();
              String [][] data = {{"nama_tindakan",txtNamaTindakan.getText()},
-                      {"harga_tindakan",""+txtBiayaTindakan.getText()}
+                      {"harga_tindakan",""+txtBiayaTindakan.getText()},
+                      {"catatan",""+txtDetailTindakan.getText()}
                   };
                   if(db.AutoInsert(data, "tbltindakan"))
                   {
@@ -1488,7 +2020,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     void refreshTindakan()
     {
         tindakan();
-        datasource = new DefaultTableModel(new String[]{"id tindakan","Nama Tindakan","Harga Tindakan"},0);
+        datasource = new DefaultTableModel(new String[]{"id tindakan","Nama Tindakan","Harga Tindakan","Detail Tindakan"},0);
         for(int i = 0 ; i < bigdataTindakan.size();i++)
         {
             datasource.addRow(bigdataTindakan.get(i));
@@ -1500,7 +2032,8 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
             dbaccess db = new dbaccess();
             String [][] data = {
                          {"nama_tindakan",""+txtNamaTindakan.getText()}, 
-                         {"harga_tindakan",""+txtBiayaTindakan.getText()}
+                         {"harga_tindakan",""+txtBiayaTindakan.getText()}, 
+                         {"catatan",""+txtDetailTindakan.getText()}
                      };
              String id = txtIdTindakan.getText();
              String where = "id_tindakan = ' "+id+"'";
@@ -1517,14 +2050,212 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private void tblTindakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTindakMouseClicked
        selecttable_tindakan();
     }//GEN-LAST:event_tblTindakMouseClicked
+boolean sudah = false;
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+      
+        if(!sudah)
+        {
+            try {
+            dbaccess db = new dbaccess();
+            SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyyy/MM/dd");
+            Date date = new Date();
+            String dat = fmt.format(date)+" 00:00:00";
+            String [] field = {"`idantri`","`id_pasien`","`timestamp`","`status`","`poli`"};
+            String where = "timestamp > "+"'"+dat+"' and status = 0";
+            bigdataantri = db.SelectTable(field, "tblantri", where, null, null);
+            for(int i = 0 ;i < bigdataantri.size();i++)
+            {
+                String [] ambil = bigdataantri.get(i);
+                if(ambil[4].equalsIgnoreCase("0"))
+                {
+                    String [] asd = new String[1]; 
+                    asd[0]=ambil[1];
+                    m1.antrianpoli1.add(asd);
+                }
+                else if(ambil[4].equalsIgnoreCase("1"))
+                {
+                    m1.antrianpoli2.add(ambil[1]);
+                }else if(ambil[4].equalsIgnoreCase("2"))
+                {
+                    m1.antrianpoli3.add(ambil[1]);
+                }else if(ambil[4].equalsIgnoreCase("3"))
+                {
+                    m1.antrianpoli4.add(ambil[1]);
+                }
+                   
+            }
+            
+            refreshTabelPoli1();
+            refreshTabelPoli2();
+            refreshTabelPoli3();
+            refreshTabelPoli4();
+            sudah = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else
+        {
+            JOptionPane.showMessageDialog(this, "Sudah mengambil Antrian");
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        if(isloggin)
+            fPIN.setVisible(true);
+        else
+            JOptionPane.showMessageDialog(this,"Silahkan Login Terlebih Dahulu");
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void txtKonfirmasiPinKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKonfirmasiPinKeyReleased
+        if(txtPin.getText().equalsIgnoreCase(txtKonfirmasiPin.getText()))
+        {
+            lblKonfirmas.setText("Benar");
+        }else
+        {
+            lblKonfirmas.setText("Salah");
+        }
+    }//GEN-LAST:event_txtKonfirmasiPinKeyReleased
+
+    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
+        try {
+            dbaccess db = new dbaccess(); 
+            String [][] data = {
+                        {"pin",""+txtPin.getText()}
+                    };
+                String where = "id_pasien = ' "+dataPasien.get(0)[0]+"'";
+                 if(db.AutoUpdate(data, "tblpasien", where))
+                 {
+                     JOptionPane.showMessageDialog(this, "Data Pin Berhasil Disimpan !");
+                 }else
+                 {
+                     JOptionPane.showMessageDialog(this, "Data Pin Gagal Disimpan !");
+                 }
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton18ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+       try {
+            dbaccess db = new dbaccess(); 
+            String [][] data = {
+                        {"pin",""+txtPinKon.getText()}
+                    };
+                String where = "id_pasien = ' "+dataPasien.get(0)[0]+"'";
+                 if(db.AutoUpdate(data, "tblpasien", where))
+                 {
+                     JOptionPane.showMessageDialog(this, "Data Pin Berhasil Disimpan !");
+                 }else
+                 {
+                     JOptionPane.showMessageDialog(this, "Data Pin Gagal Disimpan !");
+                 }
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void txtKonfirmasiPinKonKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKonfirmasiPinKonKeyReleased
+        if(txtKonfirmasiPinKon.getText().equalsIgnoreCase(txtPinKon.getText()))
+        {
+            lblKonfirmasK.setText("Benar");
+        }else
+        {
+            lblKonfirmasK.setText("Salah");
+            
+        }
+    }//GEN-LAST:event_txtKonfirmasiPinKonKeyReleased
+
+    private void JmLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JmLogoutActionPerformed
+        fPasien.setVisible(false);
+        fAntrian.setVisible(false);
+        fDeposit.setVisible(false);
+        fKonfig.setVisible(false);
+        fLogin.setVisible(true);
+        fPIN.setVisible(false);
+        fPembayaran.setVisible(false);
+        isloggin = false;
+    }//GEN-LAST:event_JmLogoutActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        try {
+            dbaccess db = new dbaccess();
+            String [][] data = {
+                        {"status","1"}};
+            String id = txtIdTindakan.getText();
+                    
+            String where = "id_tindakan = ' "+id+"'";
+             if(db.AutoUpdate(data, "tbltindakan", where))
+            {
+                JOptionPane.showMessageDialog(this, "Data berhasil di hapus !");
+                refreshTindakan();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        fAdmin.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void txtRFIDPinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFIDPinKeyPressed
+       if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            getDataRFID(txtRFIDPin.getText());
+            lblNamaPin.setText(dataPasien.get(0)[1]);
+            lblAlamatPin.setText(dataPasien.get(0)[2]);
+        }
+    }//GEN-LAST:event_txtRFIDPinKeyPressed
+
+    private void txtRFIDLupPinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRFIDLupPinKeyPressed
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            getDataRFID(txtRFIDLupPin.getText());
+            lblNamaPinKon.setText(dataPasien.get(0)[1]);
+            lblAlamatPinKon.setText(dataPasien.get(0)[2]);
+            lblIdentitas.setText(dataPasien.get(0)[3]);
+            lblNamaKK.setText(dataPasien.get(0)[4]);
+        }
+    }//GEN-LAST:event_txtRFIDLupPinKeyPressed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            int status = cmbAdmin.getSelectedIndex() + 1; 
+            dbaccess db = new dbaccess();
+            String [][] data = {{"username",txtUsernameAdmin.getText()},
+                    {"password_admin",""+txtauthAdmin.getText()}, 
+                    {"nama_admin",""+txtNamaAdmin.getText()},
+                    {"status",""+status}
+                };
+                if(db.AutoInsert(data, "tbladmin"))
+                {
+                    JOptionPane.showMessageDialog(this, "Admin Berhasil Disimpan !");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Admin Gagal Disimpan !");
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(frame_KotrolPasien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtRfidDepositKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRfidDepositKeyPressed
+         if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            refreshTabelDeposit(txtRfidDeposit.getText());
+            if(bigdataDeposit.size()>0)
+            autorefreshDeposit();
+            else
+            JOptionPane.showMessageDialog(this, "Pin yang anda masukan salah !, silahkan ulangi");
+         }
+    }//GEN-LAST:event_txtRfidDepositKeyPressed
 
     
     public void autorefresh()
     {
-        txtIdPasien.setText(bigdata.get(selected_pasien)[0]);
         txtIdRfid.setText(bigdata.get(selected_pasien)[1]);
         txtNamaPasien.setText(bigdata.get(selected_pasien)[2]);
         txtAlamatPasien.setText(bigdata.get(selected_pasien)[3]);
+        txtIdentitas.setText(bigdata.get(selected_pasien)[4]);
+        txtKK.setText(bigdata.get(selected_pasien)[5]);
     }
        public void autorefreshTindakan()
     {
@@ -1578,11 +2309,16 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem JmLogin;
+    private javax.swing.JMenuItem JmLogout;
+    private javax.swing.JComboBox cmbAdmin;
     private javax.swing.JComboBox cmbTindakan;
+    private javax.swing.JInternalFrame fAdmin;
     private javax.swing.JInternalFrame fAntrian;
     private javax.swing.JInternalFrame fDeposit;
     private javax.swing.JInternalFrame fKonfig;
     private javax.swing.JInternalFrame fLogin;
+    private javax.swing.JInternalFrame fPIN;
     private javax.swing.JInternalFrame fPasien;
     private javax.swing.JInternalFrame fPembayaran;
     private javax.swing.JButton jButton1;
@@ -1593,13 +2329,16 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
@@ -1618,19 +2357,39 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -1640,6 +2399,8 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1647,6 +2408,7 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1654,12 +2416,22 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblAlamatPin;
+    private javax.swing.JLabel lblAlamatPinKon;
     private javax.swing.JLabel lblDeposit;
     private javax.swing.JLabel lblDepositPembayaran;
     private javax.swing.JLabel lblIdAdminDeposit;
     private javax.swing.JLabel lblIdPasienDeposit;
+    private javax.swing.JLabel lblIdentitas;
+    private javax.swing.JLabel lblKonfirmas;
+    private javax.swing.JLabel lblKonfirmasK;
+    private javax.swing.JLabel lblNamaKK;
     private javax.swing.JLabel lblNamaPembayaran;
+    private javax.swing.JLabel lblNamaPin;
+    private javax.swing.JLabel lblNamaPinKon;
     private javax.swing.JLabel lblidNamaPasienDeposit;
+    private javax.swing.JMenu menuLogin;
     private javax.swing.JTable tblPasien;
     public javax.swing.JTable tblPoli1;
     public javax.swing.JTable tblPoli2;
@@ -1671,16 +2443,27 @@ public class frame_KotrolPasien extends javax.swing.JFrame {
     private javax.swing.JTextField txtBiayaTindakan;
     private javax.swing.JTextField txtCatatan;
     private javax.swing.JTextField txtDeposit;
+    private javax.swing.JTextField txtDetailTindakan;
     private javax.swing.JTextField txtIdPasien;
     private javax.swing.JTextField txtIdRfid;
     private javax.swing.JTextField txtIdTindakan;
+    private javax.swing.JTextField txtIdentitas;
+    private javax.swing.JTextField txtKK;
+    private javax.swing.JPasswordField txtKonfirmasiPin;
+    private javax.swing.JPasswordField txtKonfirmasiPinKon;
+    private javax.swing.JTextField txtNamaAdmin;
     private javax.swing.JTextField txtNamaPasien;
     private javax.swing.JTextField txtNamaTindakan;
-    private javax.swing.JPasswordField txtPinDeposit;
+    private javax.swing.JPasswordField txtPin;
+    private javax.swing.JPasswordField txtPinKon;
     private javax.swing.JPasswordField txtPinPembayaran;
+    private javax.swing.JTextField txtRFIDLupPin;
+    private javax.swing.JTextField txtRFIDPin;
     private javax.swing.JTextField txtRfidDeposit;
     private javax.swing.JTextField txtRfidPembayaran;
     private javax.swing.JTextField txtUsername;
+    private javax.swing.JTextField txtUsernameAdmin;
+    private javax.swing.JPasswordField txtauthAdmin;
     private javax.swing.JTextField txtpencarian;
     // End of variables declaration//GEN-END:variables
 }

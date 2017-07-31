@@ -118,7 +118,7 @@ public class dbaccess {
 
         }
         sql = sql +"Where "+ where ; 
-     //   System.out.println(sql);
+        System.out.println(sql);
         try{
             stmt = con.createStatement();
             stmt.executeUpdate(sql);
